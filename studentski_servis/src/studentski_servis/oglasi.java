@@ -21,9 +21,24 @@ public class oglasi {
        opis = "Neznan"; 
    }
    
-   public void oglasi (String Ime) : this
+   public void oglasi (String Ime)
    {
        ime = Ime;
+       this.opis = "Neznan";
    }
+   
+   public void oglasi (String Ime, String Opis)
+   {
+       this.ime = Ime;
+       this.opis = Opis;
+   }
+   
+   public void oglasi (String Ime, String Opis, int Stevilka)
+   {
+       this.ime = Ime;
+       this.opis = Opis;
+       this.stevilka = Stevilka;
+   }
+   
     
 }
