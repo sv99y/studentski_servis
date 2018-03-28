@@ -54,7 +54,7 @@ public class domaca_stran extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addGap(6, 6, 6)
                 .addComponent(jButton2)
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
