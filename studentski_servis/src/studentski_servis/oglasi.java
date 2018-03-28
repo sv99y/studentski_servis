@@ -14,9 +14,17 @@ import java.io.*;
 public class oglasi {
     
  
-     String ime;
+   String ime;
    int stevilka;
    String opis;
+   int prosta_mesta;
+   int bruto_placa;
+   int neto_placa;
+   int trajanje;
+   boolean aktivnost; 
+   String regija;
+   String kontakt;
+  
    
    public void oglasi()
    {
@@ -45,12 +53,27 @@ public class oglasi {
    
    public void izpisi ()
    {
+       
        System.out.println("Ime:"+ ime );
        System.out.println("Opis:"+ opis );
        System.out.println("Stevilka:"+ stevilka );
        
-       
    }
+   
+   public void dodaja_oglasa ()
+   {
+   }
+   
+   public void izbris_oglasa ()
+   {
+   }
+   
+   public void aktivnost_oglasa (boolean aktivnost)
+   {
+       this.aktivnost = aktivnost;
+   }
+   
+   
    
     
 }
