@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package studentski_servis;
+import java.io.*;
+
+
 
 /**
  *
@@ -16,6 +19,10 @@ public class Studentski_servis {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        oglasi oglas_nov = new oglasi();
+        oglas_nov.oglasi_vse("ime", "opis", 0);
+        oglas_nov.izpisi();
+        
     }
     
 }

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package studentski_servis;
+import java.io.*;
+
 
 /**
  *
@@ -11,7 +13,8 @@ package studentski_servis;
  */
 public class oglasi {
     
-   String ime;
+ 
+     String ime;
    int stevilka;
    String opis;
    
@@ -21,23 +24,32 @@ public class oglasi {
        opis = "Neznan"; 
    }
    
-   public void oglasi (String Ime)
+   public void oglasi_ime (String Ime)
    {
        ime = Ime;
-       this.opis = "Neznan";
+       opis = "Neznan";
    }
    
-   public void oglasi (String Ime, String Opis)
+   public void oglasi_ime_opis (String Ime, String Opis)
    {
-       this.ime = Ime;
-       this.opis = Opis;
+       ime = Ime;
+       opis = Opis;
    }
    
-   public void oglasi (String Ime, String Opis, int Stevilka)
+   public void oglasi_vse (String Ime, String Opis, int Stevilka)
    {
-       this.ime = Ime;
-       this.opis = Opis;
-       this.stevilka = Stevilka;
+       ime = Ime;
+       opis = Opis;
+       stevilka = Stevilka;
+   }
+   
+   public void izpisi ()
+   {
+       System.out.println("Ime:"+ ime );
+       System.out.println("Opis:"+ opis );
+       System.out.println("Stevilka:"+ stevilka );
+       
+       
    }
    
     
