@@ -11,6 +11,19 @@ package studentski_servis;
  */
 public class oglasi {
     
+   String ime;
+   int stevilka;
+   String opis;
    
+   public void oglasi()
+   {
+       ime = "Neznano";
+       opis = "Neznan"; 
+   }
+   
+   public void oglasi (String Ime) : this
+   {
+       ime = Ime;
+   }
     
 }
