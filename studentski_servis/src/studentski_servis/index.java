@@ -16,6 +16,10 @@ public class index extends javax.swing.JFrame {
      */
     public index() {
         initComponents();
+        
+        
+        
+        
     }
 
     /**
