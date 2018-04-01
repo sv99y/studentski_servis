@@ -23,6 +23,8 @@ public class Studentski_servis {
         oglas_nov.oglasi_vse("ime", "opis", 0);
         oglas_nov.izpisi();
         
+        
+        
     }
     
 }
