@@ -39,14 +39,12 @@ public class Studentski_servis {
     }  
 
     public static void main(String[] args) {
-        // TODO code application logic here
+        //odpre domace okno
         domaca_stran jf = new domaca_stran();
         jf.setExtendedState(domaca_stran.MAXIMIZED_BOTH); 
         jf.setVisible(true);
 
-
-        
-        
+//povezava na bazo
         Studentski_servis povezava = new Studentski_servis();
         Studentski_servis.connect();
     }

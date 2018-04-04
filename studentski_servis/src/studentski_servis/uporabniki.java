@@ -11,14 +11,15 @@ package studentski_servis;
  */
 public class uporabniki {
     
-    String ime;
-    String e_posta;
+    private String ime;
+    private String e_posta;
     private String geslo;
-    String l_rojstva;
-    String kraj;
+    private String l_rojstva;
+    private String kraj;
     
     void uporabniki()
     {
+        
     }
     
 }
