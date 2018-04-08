@@ -22,4 +22,9 @@ public class uporabniki {
         
     }
     
+    public String Prijava()
+    {
+        return null;
+    }
+    
 }

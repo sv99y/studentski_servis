@@ -21,7 +21,7 @@ public class oglasi {
    int bruto_placa;
    int neto_placa;
    int trajanje;
-   boolean aktivnost; 
+   
    String regija;
    String kontakt;
   
@@ -30,27 +30,13 @@ public class oglasi {
    {
        ime = "Neznano";
        opis = "Neznan"; 
+       stevilka = 0;
+       prosta_mesta = 0;
+       bruto_placa = 0;
+       neto_placa = 0;
+       trajanje = 0; 
    }
-   
-   public void oglasi_ime (String Ime)
-   {
-       ime = Ime;
-       opis = "Neznan";
-   }
-   
-   public void oglasi_ime_opis (String Ime, String Opis)
-   {
-       ime = Ime;
-       opis = Opis;
-   }
-   
-   public void oglasi_vse (String Ime, String Opis, int Stevilka)
-   {
-       ime = Ime;
-       opis = Opis;
-       stevilka = Stevilka;
-   }
-   
+
    public void izpisi ()
    {
        
@@ -60,17 +46,13 @@ public class oglasi {
        
    }
    
-   public void dodaja_oglasa ()
+   public String dodaja_oglasa ()
    {
+       return null;
    }
    
    public void izbris_oglasa ()
    {
-   }
-   
-   public void aktivnost_oglasa (boolean aktivnost)
-   {
-       this.aktivnost = aktivnost;
    }
    
    
