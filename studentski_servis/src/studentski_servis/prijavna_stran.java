@@ -170,11 +170,13 @@ public class prijavna_stran extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
         String ime = u_ime.getText();
         String geslo = u_geslo.getText();
+        
+        this.setVisible(false);
+        domaca_stran novo = new domaca_stran();
+        novo.setVisible(true);
         
         
   JOptionPane.showMessageDialog(null,"Welcome "+ime+"");
