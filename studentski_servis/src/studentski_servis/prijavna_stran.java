@@ -15,6 +15,7 @@ import javax.swing.*;
 
 
 
+
     
 
 public class prijavna_stran extends javax.swing.JFrame {
@@ -25,6 +26,8 @@ public class prijavna_stran extends javax.swing.JFrame {
     public prijavna_stran() {
         
         initComponents();
+        
+        
         
         
     }
@@ -144,13 +147,36 @@ public class prijavna_stran extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-
+        
+        Connection con;
+        Statement stavek;
+        ResultSet rezultati;
+        String sql = "SELECT * FROM kraji";
+        
+        
+        
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        try {
+            stavek = con.createStatement();
+            rezultati = stavek.executeQuery(sql);
+            
+            while (rezultati.next()) {
+            String imeKraja = rezultati.getString("ime");
+            
+            System.out.println(imeKraja);
+        }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         
         String ime = u_ime.getText();
         String geslo = u_geslo.getText();
         
-       
+        
   JOptionPane.showMessageDialog(null,"Welcome "+ime+"");
   
     }//GEN-LAST:event_jButton1MouseClicked

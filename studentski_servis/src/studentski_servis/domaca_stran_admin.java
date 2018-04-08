@@ -182,31 +182,6 @@ public class domaca_stran_admin extends javax.swing.JFrame {
             }
         });
 
-       Connection c = null;
-       Statement stmt = null;
-      
-       try {
-         Class.forName("org.postgresql.Driver");
-         c = DriverManager
-            .getConnection("jdbc:postgresql://horton.elephantsql.com:5432/ictmrwye",
-            "ictmrwye", "sdye_cJY9-xSgMK6Y8fhCCAHplX1jX8O");
-         
-          stmt = c.createStatement();
-    String sql = "INSERT INTO kraji (ime, p_stevilka) VALUES ('Velenje', 3320)";
-   
-    stmt.executeUpdate(sql);
-    stmt.close();
-   
-    c.close();
-    
-      } catch (Exception e) {
-         e.printStackTrace();
-         System.err.println(e.getClass().getName()+": "+e.getMessage());
-         System.exit(0);
-      }
-      System.out.println("Opened database successfully");
-        
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
