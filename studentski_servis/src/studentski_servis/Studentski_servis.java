@@ -30,6 +30,10 @@ public class Studentski_servis {
        jf.setExtendedState(prijavna_stran.MAXIMIZED_BOTH); 
        jf.setVisible(true);
        
+       String ime = "pleska";
+       String opis = "opis";
+       
+       
        
        
 }

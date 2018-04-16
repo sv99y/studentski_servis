@@ -13,7 +13,25 @@ import javax.swing.*;
  * @author domenosojnik
  */
 
+/*
+PRIJAVNA FUNKCIJA
 
+CREATE OR REPLACE FUNCTION prijava (imeu VARCHAR(50), geslou VARCHAR(50))
+RETURNS integer AS $$
+DECLARE
+imex varchar;
+BEGIN
+SELECT ime INTO imex FROM uporabniki WHERE ime LIKE imeu AND geslo LIKE ($2);
+IF (imex IS NOT NULL)
+THEN
+return 1;
+ELSE
+return 0;
+END IF;
+END;
+$$
+LANGUAGE plpgsql;
+*/
 
 
     
@@ -26,10 +44,7 @@ public class prijavna_stran extends javax.swing.JFrame {
     public prijavna_stran() {
         
         initComponents();
-        
-        
-        
-        
+           
     }
 
     /**
@@ -65,14 +80,11 @@ public class prijavna_stran extends javax.swing.JFrame {
         setBackground(new java.awt.Color(204, 153, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        u_ime.setText("Ime");
         u_ime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 u_imeActionPerformed(evt);
             }
         });
-
-        u_geslo.setText("jPasswordField1");
 
         jButton1.setText("Prijava");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -86,9 +98,11 @@ public class prijavna_stran extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jLabel2.setText("Uporabniško geslo");
 
-        jLabel1.setText("Uporabniško ime");
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
+        jLabel1.setText("E-mail");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,12 +111,12 @@ public class prijavna_stran extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(113, 113, 113)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(u_geslo)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                     .addComponent(u_ime, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(139, 139, 139))
+                .addGap(88, 88, 88))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +131,7 @@ public class prijavna_stran extends javax.swing.JFrame {
                 .addComponent(u_geslo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {u_geslo, u_ime});
@@ -133,10 +147,10 @@ public class prijavna_stran extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -148,12 +162,13 @@ public class prijavna_stran extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         
+        String ime = u_ime.getText();
+        char[] geslo = u_geslo.getPassword();
+        
         Connection con;
         Statement stavek;
         ResultSet rezultati;
-        String sql = "SELECT * FROM kraji";
-        
-        
+        String sql = "SELECT `prijava`("+ ime +", "+ geslo +") AS `prijava`";
         
         baza povezava = new baza();
         con = povezava.getConnection();
@@ -162,24 +177,30 @@ public class prijavna_stran extends javax.swing.JFrame {
             rezultati = stavek.executeQuery(sql);
             
             while (rezultati.next()) {
-            String imeKraja = rezultati.getString("ime");
+            int rezultat = rezultati.getInt(0);
             
-            System.out.println(imeKraja);
+            if(rezultat == 1)
+        {
+        this.setVisible(false);
+        domaca_stran novo = new domaca_stran();
+        novo.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null,"Napacno geslo");
+            
+        }
+            
+            
         }
             
         } catch (SQLException ex) {
             Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String ime = u_ime.getText();
-        String geslo = u_geslo.getText();
-        
-        this.setVisible(false);
-        domaca_stran novo = new domaca_stran();
-        novo.setVisible(true);
         
         
-  JOptionPane.showMessageDialog(null,"Welcome "+ime+"");
+  
   
     }//GEN-LAST:event_jButton1MouseClicked
 

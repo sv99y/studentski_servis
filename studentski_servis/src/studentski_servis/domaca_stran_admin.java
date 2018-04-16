@@ -45,17 +45,25 @@ public class domaca_stran_admin extends javax.swing.JFrame {
         uvoz_button = new javax.swing.JButton();
         izvoz_button = new javax.swing.JButton();
         dodaj_button = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        pozdravljeni_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         pozdravljeni_button.setText("jLabel1");
 
+        moj_profil_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         moj_profil_button.setText("Moj profil");
 
+        kategorije.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         kategorije.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        isci_kategorije_button.setText("jButton2");
+        isci_kategorije_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
+        isci_kategorije_button.setText("Išči");
 
+        seznam_oglasi.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         seznam_oglasi.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -64,17 +72,31 @@ public class domaca_stran_admin extends javax.swing.JFrame {
         jScrollPane1.setViewportView(seznam_oglasi);
 
         podrobnosti_button.setBackground(new java.awt.Color(255, 153, 153));
+        podrobnosti_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         podrobnosti_button.setText("Podrobnosti");
 
+        Uredi.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         Uredi.setText("Uredi");
 
+        Izbriši.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         Izbriši.setText("Izbriši");
 
+        uvoz_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         uvoz_button.setText("Uvozi");
 
+        izvoz_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         izvoz_button.setText("Izvozi");
 
+        dodaj_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         dodaj_button.setText("Dodaj oglas");
+
+        jButton1.setBackground(new java.awt.Color(0, 255, 102));
+        jButton1.setText("Aktiven");
+
+        jButton2.setBackground(new java.awt.Color(255, 51, 0));
+        jButton2.setText("Neaktiven");
+
+        jButton3.setText("Podjetja");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,19 +108,22 @@ public class domaca_stran_admin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(dodaj_button, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                                .addGap(299, 299, 299))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(kategorije, 0, 1, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(isci_kategorije_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(126, 126, 126))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dodaj_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(251, 251, 251)))
-                        .addGap(48, 48, 48)
+                                .addGap(71, 71, 71)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(pozdravljeni_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pozdravljeni_button, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                                 .addGap(23, 23, 23))
-                            .addComponent(moj_profil_button, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(moj_profil_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -107,8 +132,10 @@ public class domaca_stran_admin extends javax.swing.JFrame {
                             .addComponent(Uredi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Izbriši, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(uvoz_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(izvoz_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addComponent(izvoz_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(34, 34, 34))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,12 +149,13 @@ public class domaca_stran_admin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(kategorije, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(isci_kategorije_button))
+                            .addComponent(isci_kategorije_button)
+                            .addComponent(jButton3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(dodaj_button, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(podrobnosti_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -138,6 +166,10 @@ public class domaca_stran_admin extends javax.swing.JFrame {
                         .addComponent(uvoz_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(izvoz_button)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -190,6 +222,9 @@ public class domaca_stran_admin extends javax.swing.JFrame {
     private javax.swing.JButton dodaj_button;
     private javax.swing.JButton isci_kategorije_button;
     private javax.swing.JButton izvoz_button;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> kategorije;
     private javax.swing.JButton moj_profil_button;

@@ -34,17 +34,24 @@ public class domaca_stran extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         seznam_oglasi = new javax.swing.JList<>();
         podrobnosti_button = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 204, 0));
 
+        pozdravljeni_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         pozdravljeni_button.setText("jLabel1");
 
+        moj_profil_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         moj_profil_button.setText("Moj profil");
 
+        kategorije.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         kategorije.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        isci_kategorije_button.setText("jButton2");
+        isci_kategorije_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
+        isci_kategorije_button.setText("Išči");
 
+        seznam_oglasi.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         seznam_oglasi.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -53,7 +60,12 @@ public class domaca_stran extends javax.swing.JFrame {
         jScrollPane1.setViewportView(seznam_oglasi);
 
         podrobnosti_button.setBackground(new java.awt.Color(255, 153, 153));
+        podrobnosti_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         podrobnosti_button.setText("Podrobnosti");
+
+        jButton1.setBackground(new java.awt.Color(0, 204, 51));
+        jButton1.setFont(new java.awt.Font("Times", 1, 14)); // NOI18N
+        jButton1.setText("Naroči se");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,7 +87,9 @@ public class domaca_stran extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(podrobnosti_button)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(podrobnosti_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -90,13 +104,14 @@ public class domaca_stran extends javax.swing.JFrame {
                         .addComponent(pozdravljeni_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(moj_profil_button)))
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(podrobnosti_button)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)))
         );
 
         pack();
@@ -139,6 +154,7 @@ public class domaca_stran extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton isci_kategorije_button;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> kategorije;
     private javax.swing.JButton moj_profil_button;

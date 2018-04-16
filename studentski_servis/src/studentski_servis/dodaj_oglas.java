@@ -55,65 +55,77 @@ public class dodaj_oglas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times", 1, 18)); // NOI18N
         jLabel1.setText("Dodajanje novega oglasa");
 
+        izbira_kraja.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         izbira_kraja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel2.setText("Opis oglasa");
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel3.setText("Kraj dela");
 
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel4.setText("Trajanje");
 
+        jTextField1.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         jTextField1.setText("jTextField1");
 
+        jComboBox1.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel5.setText("Podjetje");
 
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel6.setText("Kategorija");
 
+        jComboBox2.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel7.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel7.setText("Stevilo prostih mest");
 
+        jTextField2.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         jTextField2.setText("jTextField2");
 
+        jTextField3.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         jTextField3.setText("jTextField3");
 
-        jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel8.setText("Plača");
 
-        jLabel9.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel9.setText("Bruto plača:");
 
-        jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel10.setText("Neto plača:");
 
+        jTextField4.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         jTextField4.setText("jTextField4");
 
+        jRadioButton1.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jRadioButton1.setForeground(new java.awt.Color(0, 163, 0));
         jRadioButton1.setText("Po dogovoru");
 
+        jRadioButton2.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         jRadioButton2.setForeground(new java.awt.Color(0, 118, 5));
         jRadioButton2.setText("Po dogovoru");
 
+        jButton1.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jButton1.setText("Objavi oglas");
 
-        jLabel11.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel11.setText("Kontakt");
 
+        jTextField5.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
         jTextField5.setText("jTextField5");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -140,7 +152,7 @@ public class dodaj_oglas extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
                                     .addGap(280, 280, 280))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +189,7 @@ public class dodaj_oglas extends javax.swing.JFrame {
                                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                                         .addGap(195, 195, 195)))
                                 .addContainerGap())))))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -235,7 +247,7 @@ public class dodaj_oglas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
