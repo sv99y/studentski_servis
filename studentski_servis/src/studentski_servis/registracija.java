@@ -16,12 +16,12 @@ import javax.swing.JOptionPane;
 /**
  *
  * CREATE OR REPLACE FUNCTION registracija (imeu VARCHAR(50), priimeku VARCHAR(50), geslou VARCHAR(50), t_stevilka int, kraj VARCHAR(50), 
- * epostau VARCHAR(50), rojstvo VARCHAR(50))
+ * epostau VARCHAR(50), rojstvo DATE)
 RETURNS integer AS $$
 DECLARE
 epostax VARCHAR;
 BEGIN
-SELECT eposta INTO epostax FROM uporabniki WHERE e_mail LIKE epostau AND geslo LIKE ($2);
+SELECT e_mail INTO epostax FROM uporabniki WHERE e_mail LIKE epostau AND geslo LIKE ($2);
 IF (epostax IS NULL)
 THEN
 INSERT INTO uporabniki (ime, priimek, e_mail, geslo, d_rojstva, t_stevilka, kraj_id) VALUES (imeu, priimeku, epostau, geslou, rojstvo, t_stevilka, (SELECT id FROM kraji WHERE ime LIKE kraj))
@@ -233,7 +233,7 @@ String value = kraj_uporabnika.getSelectedItem().toString();
         Connection con;
         Statement stavek;
         ResultSet rezultati;
-        String sql = "SELECT `registracija`("+ ime +", "+ priimek +", "+ geslo +", "+ stevilka +", Velenje, "+ mail +", "+ celoten_datum +") AS `registracija`";
+        String sql = "SELECT * FROM registracija('"+ ime +"', '"+ priimek +"', '"+ geslo +"', "+ stevilka +", 'Velenje', '"+ mail +"', '"+ celoten_datum + "')";
         
         baza povezava = new baza();
         con = povezava.getConnection();
