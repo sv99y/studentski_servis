@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package studentski_servis;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,13 +18,13 @@ import javax.swing.*;
 /*
 PRIJAVNA FUNKCIJA
 
-CREATE OR REPLACE FUNCTION prijava (imeu VARCHAR(50), geslou VARCHAR(50))
+CREATE OR REPLACE FUNCTION prijava (emailu VARCHAR(50), geslou VARCHAR(50))
 RETURNS integer AS $$
 DECLARE
-imex varchar;
+emailx varchar;
 BEGIN
-SELECT ime INTO imex FROM uporabniki WHERE ime LIKE imeu AND geslo LIKE ($2);
-IF (imex IS NOT NULL)
+SELECT e_mail INTO emailx FROM uporabniki WHERE e_mail LIKE (emailu) AND geslo LIKE (geslou);
+IF (emailx IS NOT NULL)
 THEN
 return 1;
 ELSE
@@ -59,10 +61,10 @@ public class prijavna_stran extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         u_ime = new javax.swing.JTextField();
-        u_geslo = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        geslo = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -111,8 +113,8 @@ public class prijavna_stran extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(113, 113, 113)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(geslo)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(u_geslo)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                     .addComponent(u_ime, javax.swing.GroupLayout.Alignment.LEADING))
@@ -127,14 +129,12 @@ public class prijavna_stran extends javax.swing.JFrame {
                 .addComponent(u_ime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(u_geslo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(geslo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(62, Short.MAX_VALUE))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {u_geslo, u_ime});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,12 +163,36 @@ public class prijavna_stran extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         
         String ime = u_ime.getText();
-        char[] geslo = u_geslo.getPassword();
+        String geslo_u = geslo.getText();
+        
+        String passwordToHash = geslo_u;
+        String generatedPassword = null;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
         
         Connection con;
         Statement stavek;
         ResultSet rezultati;
-        String sql = "SELECT `prijava`("+ ime +", "+ geslo +") AS `prijava`";
+        String sql = "SELECT * FROM prijava_a ('"+ ime +"', '"+ geslo_u +"')";
         
         baza povezava = new baza();
         con = povezava.getConnection();
@@ -177,17 +201,39 @@ public class prijavna_stran extends javax.swing.JFrame {
             rezultati = stavek.executeQuery(sql);
             
             while (rezultati.next()) {
-            int rezultat = rezultati.getInt(0);
+            int rezultat = rezultati.getInt(1);
             
             if(rezultat == 1)
         {
+        this.setVisible(false);
+        domaca_stran_admin novo = new domaca_stran_admin();
+        novo.setVisible(true);
+        }
+        else
+        {
+            
+        Statement stavek1;
+        ResultSet rezultati1;
+        String sql1 = "SELECT * FROM prijava ('"+ ime +"', '"+ geslo_u +"')";
+        
+        
+        try {
+            stavek1 = con.createStatement();
+            rezultati1 = stavek1.executeQuery(sql1);
+            
+            while (rezultati1.next()) {
+            int rezultat1 = rezultati1.getInt(1);
+            
+            if(rezultat1 == 1)
+        {
+            globalno.uporabnik_ime = ime;
         this.setVisible(false);
         domaca_stran novo = new domaca_stran();
         novo.setVisible(true);
         }
         else
         {
-            JOptionPane.showMessageDialog(null,"Napacno geslo");
+            JOptionPane.showMessageDialog(null,"Napačno geslo ali uporabniško ime!");
             
         }
             
@@ -197,6 +243,15 @@ public class prijavna_stran extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+        }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+        
 
         
         
@@ -247,12 +302,12 @@ public class prijavna_stran extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField geslo;
     private javax.swing.JButton jButton1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField u_geslo;
     private javax.swing.JTextField u_ime;
     // End of variables declaration//GEN-END:variables
 }

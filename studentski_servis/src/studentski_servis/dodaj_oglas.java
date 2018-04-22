@@ -9,6 +9,14 @@ package studentski_servis;
 /**
  *
  * @author domenosojnik
+CREATE OR REPLACE FUNCTION dodaja_oglasa (opisx TEXT, neto FLOAT, bruto FLOAT, mesta INT, trajanje VARCHAR(50), kraj VARCHAR(50), podjetje VARCHAR(50), kategorija VARCHAR(50))
+RETURNS integer AS $$
+BEGIN
+INSERT INTO oglasi (podjetje_id, kraj_id, kategorija_id, neto_placa, bruto_placa, st_prostih_mest, trajanje, opis) VALUES ((SELECT id FROM podjetja WHERE ime LIKE podjetje), (SELECT id FROM kraji WHERE ime LIKE kraj), (SELECT id FROM kategorije WHERE ime LIKE kategorija), neto, bruto, mesta, trajanje, opisx);
+RETURN 1;
+END;
+$$
+LANGUAGE plpgsql;
  */
 public class dodaj_oglas extends javax.swing.JFrame {
 
@@ -28,43 +36,42 @@ public class dodaj_oglas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        izbira_kraja = new javax.swing.JComboBox<>();
+        kraj_oglasa = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        opis_oglasa = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        trajanje_oglasa = new javax.swing.JTextField();
+        podjetje_oglasa = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        kategorija_oglasa = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        prosta_mesta_oglasa = new javax.swing.JTextField();
+        bruto_oglasa = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        neto_oglasa = new javax.swing.JTextField();
+        placa_po_dogovoru = new javax.swing.JRadioButton();
+        izbira_po_dogovoru = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        kontakt_oglasa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Times", 1, 18)); // NOI18N
         jLabel1.setText("Dodajanje novega oglasa");
 
-        izbira_kraja.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        izbira_kraja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        kraj_oglasa.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
+        kraj_oglasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        opis_oglasa.setColumns(20);
+        opis_oglasa.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
+        opis_oglasa.setRows(5);
+        jScrollPane1.setViewportView(opis_oglasa);
 
         jLabel2.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel2.setText("Opis oglasa");
@@ -75,11 +82,10 @@ public class dodaj_oglas extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel4.setText("Trajanje");
 
-        jTextField1.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        jTextField1.setText("jTextField1");
+        trajanje_oglasa.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
 
-        jComboBox1.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        podjetje_oglasa.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
+        podjetje_oglasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel5.setText("Podjetje");
@@ -87,17 +93,15 @@ public class dodaj_oglas extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel6.setText("Kategorija");
 
-        jComboBox2.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        kategorija_oglasa.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
+        kategorija_oglasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel7.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel7.setText("Stevilo prostih mest");
 
-        jTextField2.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        jTextField2.setText("jTextField2");
+        prosta_mesta_oglasa.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
 
-        jTextField3.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        jTextField3.setText("jTextField3");
+        bruto_oglasa.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel8.setText("Plača");
@@ -108,25 +112,28 @@ public class dodaj_oglas extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel10.setText("Neto plača:");
 
-        jTextField4.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        jTextField4.setText("jTextField4");
+        neto_oglasa.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
 
-        jRadioButton1.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(0, 163, 0));
-        jRadioButton1.setText("Po dogovoru");
+        placa_po_dogovoru.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
+        placa_po_dogovoru.setForeground(new java.awt.Color(0, 163, 0));
+        placa_po_dogovoru.setText("Po dogovoru");
 
-        jRadioButton2.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(0, 118, 5));
-        jRadioButton2.setText("Po dogovoru");
+        izbira_po_dogovoru.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
+        izbira_po_dogovoru.setForeground(new java.awt.Color(0, 118, 5));
+        izbira_po_dogovoru.setText("Po dogovoru");
 
         jButton1.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jButton1.setText("Objavi oglas");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Times", 1, 13)); // NOI18N
         jLabel11.setText("Kontakt");
 
-        jTextField5.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
-        jTextField5.setText("jTextField5");
+        kontakt_oglasa.setFont(new java.awt.Font("Times", 0, 13)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -150,8 +157,8 @@ public class dodaj_oglas extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jRadioButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(izbira_po_dogovoru, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(trajanje_oglasa, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
                                     .addGap(280, 280, 280))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -162,32 +169,32 @@ public class dodaj_oglas extends javax.swing.JFrame {
                                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(29, 29, 29)
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(podjetje_oglasa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(izbira_kraja, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(kraj_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(kategorija_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(prosta_mesta_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(192, 192, 192)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(kontakt_oglasa, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(neto_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(bruto_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(placa_po_dogovoru, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                                         .addGap(195, 195, 195)))
@@ -215,38 +222,38 @@ public class dodaj_oglas extends javax.swing.JFrame {
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(izbira_kraja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(kraj_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(kategorija_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(podjetje_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(trajanje_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton2))
+                        .addComponent(izbira_po_dogovoru))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bruto_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(neto_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton1)))
+                        .addComponent(placa_po_dogovoru)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prosta_mesta_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kontakt_oglasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -271,6 +278,20 @@ public class dodaj_oglas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String opisoglasa = opis_oglasa.getText();
+        int mesta = Integer.parseInt(prosta_mesta_oglasa.getText());
+        float bruto = Float.parseFloat(bruto_oglasa.getText()) ;
+        float neto = Float.parseFloat(neto_oglasa.getText()) ;
+        String podjetje = podjetje_oglasa.getText(); //iz comboboxa vrednost dobit
+        String kraj = podjetje_oglasa.getText(); //iz comboboxa vrednost dobit
+        String kategorija = podjetje_oglasa.getText(); //iz comboboxa vrednost dobit
+        String kontakt = kontakt_oglasa.getText();
+        String trajanje = trajanje_oglasa.getText();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,10 +329,9 @@ public class dodaj_oglas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> izbira_kraja;
+    private javax.swing.JTextField bruto_oglasa;
+    private javax.swing.JRadioButton izbira_po_dogovoru;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -324,15 +344,16 @@ public class dodaj_oglas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JComboBox<String> kategorija_oglasa;
+    private javax.swing.JTextField kontakt_oglasa;
+    private javax.swing.JComboBox<String> kraj_oglasa;
+    private javax.swing.JTextField neto_oglasa;
+    private javax.swing.JTextArea opis_oglasa;
+    private javax.swing.JRadioButton placa_po_dogovoru;
+    private javax.swing.JComboBox<String> podjetje_oglasa;
+    private javax.swing.JTextField prosta_mesta_oglasa;
+    private javax.swing.JTextField trajanje_oglasa;
     // End of variables declaration//GEN-END:variables
 
 }

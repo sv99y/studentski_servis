@@ -215,11 +215,6 @@
         <Property name="text" type="java.lang.String" value="Obrazec za registracijo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="geslo_uporabnika">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="mesec_rojstva">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mesec"/>
@@ -229,6 +224,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Leto"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="geslo_uporabnika">
     </Component>
   </SubComponents>
 </Form>

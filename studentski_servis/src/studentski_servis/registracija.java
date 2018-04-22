@@ -12,11 +12,25 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import java.lang.AbstractMethodError;
+import java.security.MessageDigest;
+import java.util.*;
+import java.text.*;
 
 /**
  *
- * CREATE OR REPLACE FUNCTION registracija (imeu VARCHAR(50), priimeku VARCHAR(50), geslou VARCHAR(50), t_stevilka int, kraj VARCHAR(50), 
- * epostau VARCHAR(50), rojstvo DATE)
+ CREATE OR REPLACE FUNCTION registracija (imeu VARCHAR(50), priimeku VARCHAR(50), geslou VARCHAR(50), t_stevilka int, kraj VARCHAR(50), 
+ epostau VARCHAR(50), rojstvo_u DATE)
 RETURNS integer AS $$
 DECLARE
 epostax VARCHAR;
@@ -24,8 +38,8 @@ BEGIN
 SELECT e_mail INTO epostax FROM uporabniki WHERE e_mail LIKE epostau AND geslo LIKE ($2);
 IF (epostax IS NULL)
 THEN
-INSERT INTO uporabniki (ime, priimek, e_mail, geslo, d_rojstva, t_stevilka, kraj_id) VALUES (imeu, priimeku, epostau, geslou, rojstvo, t_stevilka, (SELECT id FROM kraji WHERE ime LIKE kraj))
-* RETURN 1;
+INSERT INTO uporabniki (ime, priimek, e_mail, geslo, d_rojstva, t_stevilka, kraj_id) VALUES (imeu, priimeku, epostau, geslou, rojstvo_u, t_stevilka, (SELECT id FROM kraji WHERE ime LIKE kraj))
+RETURN 1;
 ELSE
 return 0;
 END IF;
@@ -70,9 +84,9 @@ public class registracija extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        geslo_uporabnika = new javax.swing.JPasswordField();
         mesec_rojstva = new javax.swing.JTextField();
         leto_rojstva = new javax.swing.JTextField();
+        geslo_uporabnika = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,8 +123,6 @@ public class registracija extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel8.setText("Obrazec za registracijo");
-
-        geslo_uporabnika.setText("jPasswordField1");
 
         mesec_rojstva.setText("Mesec");
 
@@ -223,17 +235,55 @@ String value = kraj_uporabnika.getSelectedItem().toString();
         
         String ime = ime_uporabnika.getText();
         String priimek = priimek_uporabnika.getText();
-        char[] geslo = geslo_uporabnika.getPassword();
+        String geslo = geslo_uporabnika.getText();
         String celoten_datum = leto_rojstva.getText() + "-" + mesec_rojstva.getText() + "-" + dan_rojstva.getText();
         String stevilka = t_stevilka_uporabnika.getText();
         String kraj = value;
         String mail = eposta_uporabnika.getText();
         
         
+        
+       String passwordToHash = geslo;
+        String generatedPassword = null;
+        try {
+            // Create MessageDigest instance for MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            //Add password bytes to digest
+            md.update(passwordToHash.getBytes());
+            //Get the hash's bytes
+            byte[] bytes = md.digest();
+            //This bytes[] has bytes in decimal format;
+            //Convert it to hexadecimal format
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        
+        System.out.println(generatedPassword);
+        
+        
+        String str_date = celoten_datum;
+DateFormat formatter;
+Date date = null;
+formatter = new SimpleDateFormat("yy-mm-dd");
+        try {
+            date = formatter.parse(str_date);
+        } catch (ParseException ex) {
+            Logger.getLogger(registracija.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         Connection con;
         Statement stavek;
         ResultSet rezultati;
-        String sql = "SELECT * FROM registracija('"+ ime +"', '"+ priimek +"', '"+ geslo +"', "+ stevilka +", 'Velenje', '"+ mail +"', '"+ celoten_datum + "')";
+        String sql = "SELECT * FROM registracija ('"+ ime +"', '"+ priimek +"', '"+ generatedPassword +"', "+ stevilka +", 'Velenje', '"+ mail +"', '"+ date +"')";
         
         baza povezava = new baza();
         con = povezava.getConnection();
@@ -242,7 +292,7 @@ String value = kraj_uporabnika.getSelectedItem().toString();
             rezultati = stavek.executeQuery(sql);
             
             while (rezultati.next()) {
-            int rezultat = rezultati.getInt(0);
+            int rezultat = rezultati.getInt(1);
             
             if(rezultat == 1)
         {
@@ -301,7 +351,7 @@ String value = kraj_uporabnika.getSelectedItem().toString();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField dan_rojstva;
     private javax.swing.JTextField eposta_uporabnika;
-    private javax.swing.JPasswordField geslo_uporabnika;
+    private javax.swing.JTextField geslo_uporabnika;
     private javax.swing.JTextField ime_uporabnika;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

@@ -21,7 +21,6 @@ public class oglasi {
    int bruto_placa;
    int neto_placa;
    int trajanje;
-   
    String regija;
    String kontakt;
   
