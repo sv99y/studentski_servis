@@ -26,19 +26,23 @@ import java.lang.AbstractMethodError;
 import java.security.MessageDigest;
 import java.util.*;
 import java.text.*;
+import java.awt.event.WindowEvent;
+import java.awt.*;
+import java.awt.event.WindowListener;
 
 /**
  *
- CREATE OR REPLACE FUNCTION registracija (imeu VARCHAR(50), priimeku VARCHAR(50), geslou VARCHAR(50), t_stevilka int, kraj VARCHAR(50), 
- epostau VARCHAR(50), rojstvo_u DATE)
+CREATE OR REPLACE FUNCTION registracija (imeu VARCHAR(50), priimeku VARCHAR(50), geslou VARCHAR(50), t_stevilka int, kraj VARCHAR(50), epostau VARCHAR(50), rojstvo_u VARCHAR(50))
 RETURNS integer AS $$
 DECLARE
 epostax VARCHAR;
+rojstvo_u2 varchar(50);
 BEGIN
+rojstvo_u2 := to_date(rojstvo_u, 'DD-MM-YYYY');
 SELECT e_mail INTO epostax FROM uporabniki WHERE e_mail LIKE epostau AND geslo LIKE ($2);
 IF (epostax IS NULL)
 THEN
-INSERT INTO uporabniki (ime, priimek, e_mail, geslo, d_rojstva, t_stevilka, kraj_id) VALUES (imeu, priimeku, epostau, geslou, rojstvo_u, t_stevilka, (SELECT id FROM kraji WHERE ime LIKE kraj))
+INSERT INTO uporabniki (ime, priimek, e_mail, geslo, d_rojstva, t_stevilka, kraj_id) VALUES (imeu, priimeku, epostau, geslou, rojstvo_u2, t_stevilka, (SELECT id FROM kraji WHERE ime LIKE kraj))
 RETURN 1;
 ELSE
 return 0;
@@ -47,17 +51,67 @@ END;
 $$
 LANGUAGE plpgsql;
 * 
+* 
+* 
  * @author domenosojnik
  */
+
 public class registracija extends javax.swing.JFrame {
 
     /**
      * Creates new form registracija
      */
     
+    private void initSelfListeners() {
+    WindowListener taskStarterWindowListener = new WindowListener() {
+        @Override
+        public void windowOpened(WindowEvent e) {
+            //Perform task here. In this case, we are simulating a startup (only once) time-consuming task that would use a worker. 
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            //Do nothing...Or something...You decide!
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+            //Do nothing...Or drink coffee...NVM; always drink coffee!
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+            //Do nothing...Or do EVERYTHING!
+        }
+        
+     @Override
+        public void windowDeiconified(WindowEvent e) {
+            //Do nothing...Or break the law...
+        }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+            //Do nothing...Procrastinate like me!
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
+            //Do nothing...And please don't notice I have way too much free time today...
+        }
+    };
+
+    //Here is where the magic happens! We make (a listener within) the frame start listening to the frame's own events!
+    
+}
+    
+    
+    
+    
     
     public registracija() {
-        initComponents();
+        initComponents();     
+        initSelfListeners();
+
     }
 
     /**
@@ -89,6 +143,11 @@ public class registracija extends javax.swing.JFrame {
         geslo_uporabnika = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         eposta_uporabnika.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,8 +162,6 @@ public class registracija extends javax.swing.JFrame {
         jLabel2.setText("Priimek");
 
         jLabel3.setText("E-pošta");
-
-        kraj_uporabnika.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setText("Kraj bivanja");
 
@@ -230,6 +287,16 @@ public class registracija extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        //izpis krajev v combobox
+        Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        
+        
+
+    
+        
         Object varName = (Object)kraj_uporabnika.getSelectedItem();
 String value = kraj_uporabnika.getSelectedItem().toString();
         
@@ -270,23 +337,12 @@ String value = kraj_uporabnika.getSelectedItem().toString();
         System.out.println(generatedPassword);
         
         
-        String str_date = celoten_datum;
-DateFormat formatter;
-Date date = null;
-formatter = new SimpleDateFormat("yy-mm-dd");
-        try {
-            date = formatter.parse(str_date);
-        } catch (ParseException ex) {
-            Logger.getLogger(registracija.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        Connection con;
         Statement stavek;
         ResultSet rezultati;
-        String sql = "SELECT * FROM registracija ('"+ ime +"', '"+ priimek +"', '"+ generatedPassword +"', "+ stevilka +", 'Velenje', '"+ mail +"', '"+ date +"')";
+        String sql = "SELECT * FROM registracija ('"+ ime +"', '"+ priimek +"', '"+ generatedPassword +"', '"+ stevilka +"', 'Velenje', '"+ mail +"', '"+ celoten_datum +"') LIMIT 1";
         
-        baza povezava = new baza();
-        con = povezava.getConnection();
+        
         try {
             stavek = con.createStatement();
             rezultati = stavek.executeQuery(sql);
@@ -297,6 +353,9 @@ formatter = new SimpleDateFormat("yy-mm-dd");
             if(rezultat == 1)
         {
         JOptionPane.showMessageDialog(null,"Uspešna registracija!");
+        this.setVisible(false);
+        prijavna_stran prijava = new prijavna_stran();
+        prijava.setVisible(true);
         }
         else
         {
@@ -312,6 +371,27 @@ formatter = new SimpleDateFormat("yy-mm-dd");
         
         } 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        
+        Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        
+        try {
+             Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from izpis_krajev()");
+        while (rs.next()) {
+            String pat = rs.getString("ime_kraja");
+            
+            kraj_uporabnika.addItem(pat);
+        }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(registracija.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -339,6 +419,8 @@ formatter = new SimpleDateFormat("yy-mm-dd");
             java.util.logging.Logger.getLogger(registracija.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -346,7 +428,7 @@ formatter = new SimpleDateFormat("yy-mm-dd");
                 new registracija().setVisible(true);
             }
         });
-    }
+    }   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField dan_rojstva;

@@ -33,6 +33,19 @@ END IF;
 END;
 $$
 LANGUAGE plpgsql;
+
+
+
+CREATE OR REPLACE FUNCTION izpis_uporabnika (e_mailu VARCHAR(50))
+RETURNS varchar(50) AS $$
+DECLARE
+imex varchar(50);
+BEGIN
+SELECT ime INTO imex FROM uporabniki WHERE e_mail LIKE (e_mailu);
+RETURN imex;
+END;
+$$
+LANGUAGE plpgsql;
 */
 
 
@@ -65,6 +78,7 @@ public class prijavna_stran extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         geslo = new javax.swing.JTextField();
+        gumb_registracija = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -106,6 +120,13 @@ public class prijavna_stran extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 3, 13)); // NOI18N
         jLabel1.setText("E-mail");
 
+        gumb_registracija.setText("Registracija");
+        gumb_registracija.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gumb_registracijaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -113,6 +134,7 @@ public class prijavna_stran extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(113, 113, 113)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(gumb_registracija, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(geslo)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -133,7 +155,9 @@ public class prijavna_stran extends javax.swing.JFrame {
                 .addComponent(geslo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(gumb_registracija)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,10 +216,11 @@ public class prijavna_stran extends javax.swing.JFrame {
         Connection con;
         Statement stavek;
         ResultSet rezultati;
-        String sql = "SELECT * FROM prijava_a ('"+ ime +"', '"+ geslo_u +"')";
+        String sql = "SELECT * FROM prijava_a ('"+ ime +"', '"+ generatedPassword +"')";
         
         baza povezava = new baza();
         con = povezava.getConnection();
+        
         try {
             stavek = con.createStatement();
             rezultati = stavek.executeQuery(sql);
@@ -205,6 +230,27 @@ public class prijavna_stran extends javax.swing.JFrame {
             
             if(rezultat == 1)
         {
+            
+        Statement stavek2;
+        ResultSet rezultati2;
+        String sql2 = "SELECT * FROM izpis_uporabnika('"+ ime +"')";
+            
+            try {
+            stavek2 = con.createStatement();
+            
+            rezultati2 = stavek2.executeQuery(sql2);
+            
+            
+            while (rezultati2.next()) {
+            String rezultat2 = rezultati2.getString(1);
+            globalno.uporabnik_ime = rezultat2;
+            }
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+            
         this.setVisible(false);
         domaca_stran_admin novo = new domaca_stran_admin();
         novo.setVisible(true);
@@ -214,7 +260,7 @@ public class prijavna_stran extends javax.swing.JFrame {
             
         Statement stavek1;
         ResultSet rezultati1;
-        String sql1 = "SELECT * FROM prijava ('"+ ime +"', '"+ geslo_u +"')";
+        String sql1 = "SELECT * FROM prijava ('"+ ime +"', '"+ generatedPassword +"')";
         
         
         try {
@@ -226,12 +272,34 @@ public class prijavna_stran extends javax.swing.JFrame {
             
             if(rezultat1 == 1)
         {
-            globalno.uporabnik_ime = ime;
+            
+            Statement stavek2;
+        ResultSet rezultati2;
+        String sql2 = "SELECT * FROM izpis_uporabnika('"+ ime +"')";
+            
+            try {
+            stavek2 = con.createStatement();
+            
+            rezultati2 = stavek2.executeQuery(sql2);
+            
+            
+            while (rezultati2.next()) {
+            String rezultat2 = rezultati2.getString(1);
+            globalno.uporabnik_ime = rezultat2;
+            }
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
+            
         this.setVisible(false);
         domaca_stran novo = new domaca_stran();
         novo.setVisible(true);
         }
         else
+                
         {
             JOptionPane.showMessageDialog(null,"Napačno geslo ali uporabniško ime!");
             
@@ -262,6 +330,12 @@ public class prijavna_stran extends javax.swing.JFrame {
     private void u_imeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_u_imeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_u_imeActionPerformed
+
+    private void gumb_registracijaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gumb_registracijaActionPerformed
+registracija registracija1= new registracija();
+this.setVisible(false);
+registracija1.setVisible(true);// TODO add your handling code here:
+    }//GEN-LAST:event_gumb_registracijaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,6 +377,7 @@ public class prijavna_stran extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField geslo;
+    private javax.swing.JButton gumb_registracija;
     private javax.swing.JButton jButton1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;

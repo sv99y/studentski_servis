@@ -17,7 +17,7 @@ public class domaca_stran extends javax.swing.JFrame {
     public domaca_stran() {
         initComponents();
         
-        dobrodosel.setText("Pozdravljen, " + globalno.uporabnik_ime);
+        dobrodosel.setText("Pozdravljen/a, " + globalno.uporabnik_ime);
     }
 
     /**
