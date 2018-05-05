@@ -5,6 +5,14 @@
  */
 package studentski_servis;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author domenosojnik
@@ -27,12 +35,28 @@ public class dodajanje_kategorije extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         ime_kategorije = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         opis_kategorije = new javax.swing.JTextArea();
+        izbrisi = new javax.swing.JButton();
+        izbrisana_kategorija = new javax.swing.JComboBox<>();
+
+        jButton2.setText("jButton2");
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jButton1.setText("Dodaj kategorijo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         ime_kategorije.setText("Ime kategorije");
 
@@ -40,6 +64,8 @@ public class dodajanje_kategorije extends javax.swing.JFrame {
         opis_kategorije.setRows(5);
         opis_kategorije.setText("Opis kategorije\n");
         jScrollPane1.setViewportView(opis_kategorije);
+
+        izbrisi.setText("Izbriši");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -49,24 +75,83 @@ public class dodajanje_kategorije extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                     .addComponent(ime_kategorije))
-                .addGap(17, 17, 17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(izbrisi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(13, 13, 13))
+                    .addComponent(izbrisana_kategorija, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(7, 7, 7))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ime_kategorije, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ime_kategorije, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(izbrisana_kategorija, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(izbrisi))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        
+        try {
+             Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from izpis_kategorij()");
+        while (rs.next()) {
+            String pat = rs.getString("ime_kategorije");
+            
+            izbrisana_kategorija.addItem(pat);
+        }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(dodajanje_kategorije.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String ime = ime_kategorije.getText();
+        String opis = opis_kategorije.getText();
+        Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        int rezultat1 = 0;
+        try {
+             Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from dodaja_kategorije('"+ ime +"', '"+ opis +"')");
+        
+        while (rs.next()) {
+            rezultat1 = rs.getInt(1);
+        }
+        if (rezultat1 == 1)
+                {
+                     JOptionPane.showMessageDialog(null,"Uspešno dodana kategorija.");
+                }
+        else
+        {
+             JOptionPane.showMessageDialog(null,"Kategorija s tem imenom že obstaja.");
+        }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(dodajanje_kategorije.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,7 +190,10 @@ public class dodajanje_kategorije extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ime_kategorije;
+    private javax.swing.JComboBox<String> izbrisana_kategorija;
+    private javax.swing.JButton izbrisi;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea opis_kategorije;
     // End of variables declaration//GEN-END:variables
