@@ -287,16 +287,22 @@ public class registracija extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+         if ( ime_uporabnika.getText().trim().length() == 0 
+                 || priimek_uporabnika.getText().trim().length() == 0 
+                 || geslo_uporabnika.getText().trim().length() == 0 
+                 || eposta_uporabnika.getText().trim().length() == 0
+                 || t_stevilka_uporabnika.getText().trim().length() == 0)          
+    {
+        JOptionPane.showMessageDialog(null,"Izpolni podatke pravilno.");
+    }
+         
+    else
+         {
         //izpis krajev v combobox
         Connection con;
         baza povezava = new baza();
         con = povezava.getConnection();
-        
-        
 
-    
-        
         Object varName = (Object)kraj_uporabnika.getSelectedItem();
 String value = kraj_uporabnika.getSelectedItem().toString();
         
@@ -369,7 +375,8 @@ String value = kraj_uporabnika.getSelectedItem().toString();
             Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
         
         
-        } 
+        }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

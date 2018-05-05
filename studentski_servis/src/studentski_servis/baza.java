@@ -23,6 +23,7 @@ public class baza {
     private static String password = "sdye_cJY9-xSgMK6Y8fhCCAHplX1jX8O";
     private static Connection con;
     
+   
     
     public static Connection getConnection() {
         try {
