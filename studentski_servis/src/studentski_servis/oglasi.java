@@ -5,6 +5,14 @@
  */
 package studentski_servis;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 
 /**
@@ -13,48 +21,50 @@ import java.io.*;
  */
 public class oglasi {
     
- 
-   String ime;
-   int stevilka;
+   
+   int sifra;
    String opis;
    int prosta_mesta;
-   int bruto_placa;
-   int neto_placa;
-   int trajanje;
-   String regija;
+   float bruto_placa;
+   float neto_placa;
+   String trajanje;
+   String kraj;
    String kontakt;
-  
+   String kategorija;
    
-   public void oglasi()
+   public oglasi()
    {
-       ime = "Neznano";
+       
        opis = "Neznan"; 
-       stevilka = 0;
+       sifra = 0;
        prosta_mesta = 0;
        bruto_placa = 0;
        neto_placa = 0;
-       trajanje = 0; 
+       trajanje = "Po dogovoru"; 
+       kategorija = "Neznana";
+       kraj = "Neznan";
+       kontakt = "Neznan";
    }
-
-   public void izpisi ()
+   
+   public oglasi(String Opis, int Sifra, int Prosta_mesta, float Bruto_placa, float Neto_placa, String Trajanje, String Kategorija, String Kraj, String Kontakt)
    {
        
-       System.out.println("Ime:"+ ime );
-       System.out.println("Opis:"+ opis );
-       System.out.println("Stevilka:"+ stevilka );
+       opis = Opis; 
+       sifra = Sifra;
+       prosta_mesta = Prosta_mesta;
+       bruto_placa = Bruto_placa;
+       neto_placa = Neto_placa;
+       trajanje = Trajanje;
+       kategorija = Kategorija;
+       kraj = Kraj;
+       kontakt = Kontakt;
        
    }
    
-   public String dodaja_oglasa ()
+   public String toString()
    {
-       return null;
+       return "Prosta mesta:" + prosta_mesta + " Bruto:" + bruto_placa + "EUR Neto:" + neto_placa + "EUR Trajanje:" + trajanje + " Kraj:" + kraj + "";
    }
-   
-   public void izbris_oglasa ()
-   {
-   }
-   
-   
    
     
 }

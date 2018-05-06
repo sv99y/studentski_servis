@@ -255,6 +255,13 @@ public class prijavna_stran extends javax.swing.JFrame {
         domaca_stran_admin novo = new domaca_stran_admin();
         novo.setVisible(true);
         }
+            
+            
+            
+            // ČE NI ADMIN
+            
+            
+            
         else
         {
             
@@ -275,17 +282,29 @@ public class prijavna_stran extends javax.swing.JFrame {
             
             Statement stavek2;
         ResultSet rezultati2;
+        Statement stavek3;
+        ResultSet rezultati3;
         String sql2 = "SELECT * FROM izpis_uporabnika('"+ ime +"')";
+        String sql3 = "SELECT * FROM izpis_idja('"+ ime +"')";
             
             try {
             stavek2 = con.createStatement();
             
             rezultati2 = stavek2.executeQuery(sql2);
             
+            stavek3 = con.createStatement();
+            
+            rezultati3 = stavek3.executeQuery(sql3);
+            
             
             while (rezultati2.next()) {
             String rezultat2 = rezultati2.getString(1);
             globalno.uporabnik_ime = rezultat2;
+            }
+            
+            while (rezultati3.next()) {
+            int rezultat3 = rezultati3.getInt(1);
+            globalno.id = rezultat3;
             }
             
             } catch (SQLException ex) {

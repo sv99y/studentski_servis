@@ -5,6 +5,22 @@
  */
 package studentski_servis;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import javax.swing.*;
+import java.sql.Statement;
+import java.awt.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author domenosojnik
@@ -40,6 +56,12 @@ public class domaca_stran extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 0));
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         dobrodosel.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         dobrodosel.setText("jLabel1");
@@ -48,17 +70,12 @@ public class domaca_stran extends javax.swing.JFrame {
         moj_profil_button.setText("Moj profil");
 
         kategorije.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
-        kategorije.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         isci_kategorije_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         isci_kategorije_button.setText("Išči");
 
         seznam_oglasi.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
-        seznam_oglasi.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        seznam_oglasi.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(seznam_oglasi);
 
         podrobnosti_button.setBackground(new java.awt.Color(255, 153, 153));
@@ -118,6 +135,69 @@ public class domaca_stran extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        
+        try {
+             Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from izpis_kategorij()");
+        while (rs.next()) {
+            String pat = rs.getString(1);
+            
+            kategorije.addItem(pat);
+        }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(registracija.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        oglasi novo = new oglasi();
+
+        try
+        {
+            Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from izpis_oglasov()");
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        seznam_oglasi.setModel(model);
+
+
+    while (rs.next()) {
+    String opis = rs.getString("opis");
+    String trajanje = rs.getString("trajanje");
+    String kontakt = rs.getString("kontakt");
+    String kraj = rs.getString("ime_kraja");
+    float neto = rs.getFloat("neto_placa");
+    float bruto = rs.getFloat("bruto_placa");
+    int sifra = rs.getInt("sifra");
+    int mesta = rs.getInt("st_prostih_mest");
+    String kategorija = rs.getString("ime_kategorije");
+    
+    oglasi oglas = new oglasi(opis, sifra, mesta, bruto, neto, trajanje, kategorija, kraj, kontakt);
+    //JOptionPane.showMessageDialog(null,oglas.toString());
+   // listModel.addElement(oglas.toString());
+   
+model.addElement(oglas.toString());
+}
+
+        }
+catch (SQLException ex) {
+            Logger.getLogger(domaca_stran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        
+        
+       
+
+
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
