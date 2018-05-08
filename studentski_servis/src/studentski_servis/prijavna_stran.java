@@ -245,7 +245,7 @@ public class prijavna_stran extends javax.swing.JFrame {
             String rezultat2 = rezultati2.getString(1);
             globalno.uporabnik_ime = rezultat2;
             }
-            
+            con.close();
             } catch (SQLException ex) {
             Logger.getLogger(prijavna_stran.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -324,6 +324,7 @@ public class prijavna_stran extends javax.swing.JFrame {
             
         }
             
+            con.close();
             
         }
             
@@ -352,7 +353,6 @@ public class prijavna_stran extends javax.swing.JFrame {
 
     private void gumb_registracijaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gumb_registracijaActionPerformed
 registracija registracija1= new registracija();
-this.setVisible(false);
 registracija1.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_gumb_registracijaActionPerformed
 

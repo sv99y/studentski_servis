@@ -53,6 +53,10 @@ public class domaca_stran extends javax.swing.JFrame {
         seznam_oglasi = new javax.swing.JList<>();
         podrobnosti_button = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        moji_oglasi_button = new javax.swing.JButton();
+        odjavi_button = new javax.swing.JButton();
+        vsi_oglasi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 0));
@@ -73,6 +77,11 @@ public class domaca_stran extends javax.swing.JFrame {
 
         isci_kategorije_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         isci_kategorije_button.setText("Išči");
+        isci_kategorije_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isci_kategorije_buttonActionPerformed(evt);
+            }
+        });
 
         seznam_oglasi.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         seznam_oglasi.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -81,10 +90,50 @@ public class domaca_stran extends javax.swing.JFrame {
         podrobnosti_button.setBackground(new java.awt.Color(255, 153, 153));
         podrobnosti_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         podrobnosti_button.setText("Podrobnosti");
+        podrobnosti_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                podrobnosti_buttonActionPerformed(evt);
+            }
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 204, 51));
         jButton1.setFont(new java.awt.Font("Times", 1, 14)); // NOI18N
         jButton1.setText("Naroči se");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Odjava");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        moji_oglasi_button.setText("Moji oglasi");
+        moji_oglasi_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moji_oglasi_buttonActionPerformed(evt);
+            }
+        });
+
+        odjavi_button.setBackground(new java.awt.Color(0, 204, 51));
+        odjavi_button.setFont(new java.awt.Font("Times", 1, 14)); // NOI18N
+        odjavi_button.setText("Odjavi se");
+        odjavi_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                odjavi_buttonActionPerformed(evt);
+            }
+        });
+
+        vsi_oglasi.setText("Vsi");
+        vsi_oglasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vsi_oglasiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,21 +143,28 @@ public class domaca_stran extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(kategorije, 0, 72, Short.MAX_VALUE)
+                        .addComponent(kategorije, 0, 80, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(isci_kategorije_button, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                        .addGap(126, 126, 126)
+                        .addComponent(isci_kategorije_button, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(vsi_oglasi)
+                        .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(dobrodosel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(23, 23, 23))
-                            .addComponent(moj_profil_button, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
+                            .addComponent(moj_profil_button, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(podrobnosti_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(podrobnosti_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(moji_oglasi_button)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(odjavi_button, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -118,7 +174,8 @@ public class domaca_stran extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(kategorije, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(isci_kategorije_button))
+                        .addComponent(isci_kategorije_button)
+                        .addComponent(vsi_oglasi))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dobrodosel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -128,8 +185,13 @@ public class domaca_stran extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(podrobnosti_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(moji_oglasi_button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(odjavi_button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)))
         );
 
@@ -150,6 +212,9 @@ public class domaca_stran extends javax.swing.JFrame {
             
             kategorije.addItem(pat);
         }
+        
+       
+        
         }
         catch (SQLException ex) {
             Logger.getLogger(registracija.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,14 +240,17 @@ public class domaca_stran extends javax.swing.JFrame {
     float neto = rs.getFloat("neto_placa");
     float bruto = rs.getFloat("bruto_placa");
     int sifra = rs.getInt("sifra");
-    int mesta = rs.getInt("st_prostih_mest");
+    int mesta = rs.getInt("mesta");
     String kategorija = rs.getString("ime_kategorije");
+     boolean aktivnost = rs.getBoolean("aktivnostz");
     
-    oglasi oglas = new oglasi(opis, sifra, mesta, bruto, neto, trajanje, kategorija, kraj, kontakt);
+    oglasi oglas = new oglasi(opis, sifra, mesta, bruto, neto, trajanje, kategorija, kraj, kontakt, aktivnost);
     //JOptionPane.showMessageDialog(null,oglas.toString());
    // listModel.addElement(oglas.toString());
    
 model.addElement(oglas.toString());
+
+con.close();
 }
 
         }
@@ -198,6 +266,235 @@ catch (SQLException ex) {
 
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void podrobnosti_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_podrobnosti_buttonActionPerformed
+        // TODO add your handling code here:
+        
+        String selected = seznam_oglasi.getSelectedValue();
+       String[] temp = selected.trim().split("\\s");
+       globalno.sifrica = temp[1];
+       podrobno okno = new podrobno();
+       okno.setVisible(true);
+    }//GEN-LAST:event_podrobnosti_buttonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String selected = seznam_oglasi.getSelectedValue();
+       String[] temp = selected.trim().split("\\s");
+       
+       int sifra2 = Integer.parseInt(temp[1]);
+       
+       Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        int rezultat = 0;
+        try {
+             Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from prijava_na_oglas("+ sifra2 +","+ globalno.id +")");
+        while (rs.next()) {
+            int pat = rs.getInt(1);
+            rezultat = pat;
+            
+        }
+        
+        if(rezultat == 1)
+        {
+            JOptionPane.showMessageDialog(null,"Uspešno prijavljen na oglas.");
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(null,"Na ta oglas si že prijavljen.");
+        }
+        
+        
+        con.close();
+        
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(registracija.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       
+       
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        prijavna_stran stran = new prijavna_stran();
+        stran.setVisible(true);
+        this.setVisible(false);
+                                
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void isci_kategorije_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isci_kategorije_buttonActionPerformed
+   // TODO add your handling code here:
+        Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        
+         Object varName = (Object)kategorije.getSelectedItem();
+String value = kategorije.getSelectedItem().toString();
+        
+        try
+        {
+            Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from izpis_oglasov_kategorije('"+ value +"')");
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        seznam_oglasi.setModel(model);
+
+
+    while (rs.next()) {
+    String opis = rs.getString("opis");
+    String trajanje = rs.getString("trajanje");
+    String kontakt = rs.getString("kontakt");
+    String kraj = rs.getString("ime_kraja");
+    float neto = rs.getFloat("neto_placa");
+    float bruto = rs.getFloat("bruto_placa");
+    int sifra = rs.getInt("sifra");
+    int mesta = rs.getInt("mesta");
+    String kategorija = rs.getString("ime_kategorije");
+     boolean aktivnost = rs.getBoolean("aktivnostz");
+    
+    oglasi oglas = new oglasi(opis, sifra, mesta, bruto, neto, trajanje, kategorija, kraj, kontakt, aktivnost);
+    //JOptionPane.showMessageDialog(null,oglas.toString());
+   // listModel.addElement(oglas.toString());
+   
+model.addElement(oglas.toString());
+con.close();
+}
+
+        }
+catch (SQLException ex) {
+            Logger.getLogger(domaca_stran.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_isci_kategorije_buttonActionPerformed
+
+    private void odjavi_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_odjavi_buttonActionPerformed
+        // TODO add your handling code here:
+        String selected = seznam_oglasi.getSelectedValue();
+       String[] temp = selected.trim().split("\\s");
+       
+       int sifra2 = Integer.parseInt(temp[1]);
+       
+       Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        int rezultat = 0;
+        try {
+             Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from odjava_iz_oglasa("+ sifra2 +","+ globalno.id +")");
+        while (rs.next()) {
+            int pat = rs.getInt(1);
+            rezultat = pat;
+            
+        }
+        
+        if(rezultat == 1)
+        {
+            JOptionPane.showMessageDialog(null,"Uspešno odjavljen iz oglasa.");
+        }
+        else
+        {
+             JOptionPane.showMessageDialog(null,"Na ta oglas nisi prijavljen.");
+        }
+        
+        
+        con.close();
+        
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(registracija.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_odjavi_buttonActionPerformed
+
+    private void moji_oglasi_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moji_oglasi_buttonActionPerformed
+        // TODO add your handling code here:
+        Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        
+        try
+        {
+            Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from izpis_oglasov_uporabnika('"+ globalno.id +"')");
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        seznam_oglasi.setModel(model);
+
+
+    while (rs.next()) {
+    String opis = rs.getString("opis");
+    String trajanje = rs.getString("trajanje");
+    String kontakt = rs.getString("kontakt"); 
+    float neto = rs.getFloat("neto_placa");
+    float bruto = rs.getFloat("bruto_placa");
+    int sifra = rs.getInt("sifra");
+    int mesta = rs.getInt("st_prostih_mest");
+    
+    
+    
+    oglasi oglas = new oglasi(opis, sifra, mesta, bruto, neto, trajanje, "Neki", "neki", kontakt, true);
+    //JOptionPane.showMessageDialog(null,oglas.toString());
+   // listModel.addElement(oglas.toString());
+   
+model.addElement(oglas.usertoString());
+con.close();
+}
+
+        }
+catch (SQLException ex) {
+            Logger.getLogger(domaca_stran.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }//GEN-LAST:event_moji_oglasi_buttonActionPerformed
+
+    private void vsi_oglasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vsi_oglasiActionPerformed
+        // TODO add your handling code here:
+        Connection con;
+        baza povezava = new baza();
+        con = povezava.getConnection();
+        
+        
+        
+        
+        oglasi novo = new oglasi();
+
+        try
+        {
+            Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from izpis_oglasov()");
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        seznam_oglasi.setModel(model);
+
+
+    while (rs.next()) {
+    String opis = rs.getString("opis");
+    String trajanje = rs.getString("trajanje");
+    String kontakt = rs.getString("kontakt");
+    String kraj = rs.getString("ime_kraja");
+    float neto = rs.getFloat("neto_placa");
+    float bruto = rs.getFloat("bruto_placa");
+    int sifra = rs.getInt("sifra");
+    int mesta = rs.getInt("mesta");
+    String kategorija = rs.getString("ime_kategorije");
+     boolean aktivnost = rs.getBoolean("aktivnostz");
+    
+    oglasi oglas = new oglasi(opis, sifra, mesta, bruto, neto, trajanje, kategorija, kraj, kontakt, aktivnost);
+    //JOptionPane.showMessageDialog(null,oglas.toString());
+   // listModel.addElement(oglas.toString());
+   
+model.addElement(oglas.toString());
+
+con.close();
+}
+
+        }
+catch (SQLException ex) {
+            Logger.getLogger(domaca_stran.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_vsi_oglasiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,10 +536,14 @@ catch (SQLException ex) {
     private javax.swing.JLabel dobrodosel;
     private javax.swing.JButton isci_kategorije_button;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> kategorije;
     private javax.swing.JButton moj_profil_button;
+    private javax.swing.JButton moji_oglasi_button;
+    private javax.swing.JButton odjavi_button;
     private javax.swing.JButton podrobnosti_button;
     private javax.swing.JList<String> seznam_oglasi;
+    private javax.swing.JButton vsi_oglasi;
     // End of variables declaration//GEN-END:variables
 }

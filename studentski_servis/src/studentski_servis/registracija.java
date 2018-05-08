@@ -142,7 +142,6 @@ public class registracija extends javax.swing.JFrame {
         leto_rojstva = new javax.swing.JTextField();
         geslo_uporabnika = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -369,6 +368,8 @@ String value = kraj_uporabnika.getSelectedItem().toString();
             
         }
             
+            con.close();
+            
             }
             
         } catch (SQLException ex) {
@@ -394,6 +395,7 @@ String value = kraj_uporabnika.getSelectedItem().toString();
             
             kraj_uporabnika.addItem(pat);
         }
+        con.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(registracija.class.getName()).log(Level.SEVERE, null, ex);

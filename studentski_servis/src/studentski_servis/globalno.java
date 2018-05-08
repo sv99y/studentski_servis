@@ -13,5 +13,6 @@ public class globalno {
     
     public static String uporabnik_ime;
     public static int id;
+    public static String sifrica;
     
 }

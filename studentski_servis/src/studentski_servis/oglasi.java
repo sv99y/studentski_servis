@@ -31,6 +31,7 @@ public class oglasi {
    String kraj;
    String kontakt;
    String kategorija;
+   boolean aktivnost;
    
    public oglasi()
    {
@@ -46,7 +47,7 @@ public class oglasi {
        kontakt = "Neznan";
    }
    
-   public oglasi(String Opis, int Sifra, int Prosta_mesta, float Bruto_placa, float Neto_placa, String Trajanje, String Kategorija, String Kraj, String Kontakt)
+   public oglasi(String Opis, int Sifra, int Prosta_mesta, float Bruto_placa, float Neto_placa, String Trajanje, String Kategorija, String Kraj, String Kontakt, boolean Aktivnost)
    {
        
        opis = Opis; 
@@ -58,12 +59,25 @@ public class oglasi {
        kategorija = Kategorija;
        kraj = Kraj;
        kontakt = Kontakt;
+       aktivnost = Aktivnost;
+       
        
    }
    
+   @Override
    public String toString()
    {
-       return "Prosta mesta:" + prosta_mesta + " Bruto:" + bruto_placa + "EUR Neto:" + neto_placa + "EUR Trajanje:" + trajanje + " Kraj:" + kraj + "";
+       return "Šifra: " + sifra +" Prosta mesta: " + prosta_mesta + " Bruto: " + bruto_placa + " EUR Neto: " + neto_placa + " EUR Trajanje: " + trajanje + " Kraj: " + kraj + "";
+   }
+   
+   public String admintoString()
+   {
+       return "Šifra: " + sifra +" Prosta mesta: " + prosta_mesta + " Bruto: " + bruto_placa + " EUR Neto: " + neto_placa + " EUR Trajanje: " + trajanje + " Kraj: " + kraj + " Aktivnost: " + aktivnost + "";
+   }
+   
+   public String usertoString()
+   {
+       return "Šifra: " + sifra +" Prosta mesta: " + prosta_mesta + " Bruto: " + bruto_placa + " EUR Neto: " + neto_placa + " EUR Trajanje: " + trajanje + "";
    }
    
     

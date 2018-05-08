@@ -118,6 +118,7 @@ public class dodajanje_kategorije extends javax.swing.JFrame {
             
             izbrisana_kategorija.addItem(pat);
         }
+        con.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(dodajanje_kategorije.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,6 +148,7 @@ public class dodajanje_kategorije extends javax.swing.JFrame {
         {
              JOptionPane.showMessageDialog(null,"Kategorija s tem imenom že obstaja.");
         }
+        con.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(dodajanje_kategorije.class.getName()).log(Level.SEVERE, null, ex);
