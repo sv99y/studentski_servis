@@ -6,7 +6,6 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="0" green="cc" red="ff" type="rgb"/>
     </Property>
-    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -81,7 +80,7 @@
                   <Group type="102" attributes="0">
                       <Component id="dobrodosel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="moj_profil_button" min="-2" max="-2" attributes="0"/>
+                      <Component id="moj_profil_button" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -119,6 +118,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Moj profil"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="moj_profil_buttonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="kategorije">
       <Properties>

@@ -140,7 +140,7 @@ public class registracija extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         mesec_rojstva = new javax.swing.JTextField();
         leto_rojstva = new javax.swing.JTextField();
-        geslo_uporabnika = new javax.swing.JTextField();
+        geslo_uporabnika = new javax.swing.JPasswordField();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -183,6 +183,12 @@ public class registracija extends javax.swing.JFrame {
         mesec_rojstva.setText("Mesec");
 
         leto_rojstva.setText("Leto");
+
+        geslo_uporabnika.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                geslo_uporabnikaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -288,7 +294,7 @@ public class registracija extends javax.swing.JFrame {
         // TODO add your handling code here:
          if ( ime_uporabnika.getText().trim().length() == 0 
                  || priimek_uporabnika.getText().trim().length() == 0 
-                 || geslo_uporabnika.getText().trim().length() == 0 
+                
                  || eposta_uporabnika.getText().trim().length() == 0
                  || t_stevilka_uporabnika.getText().trim().length() == 0)          
     {
@@ -307,7 +313,7 @@ String value = kraj_uporabnika.getSelectedItem().toString();
         
         String ime = ime_uporabnika.getText();
         String priimek = priimek_uporabnika.getText();
-        String geslo = geslo_uporabnika.getText();
+        String geslo = new String(geslo_uporabnika.getPassword());
         String celoten_datum = leto_rojstva.getText() + "-" + mesec_rojstva.getText() + "-" + dan_rojstva.getText();
         String stevilka = t_stevilka_uporabnika.getText();
         String kraj = value;
@@ -402,6 +408,10 @@ String value = kraj_uporabnika.getSelectedItem().toString();
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void geslo_uporabnikaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_geslo_uporabnikaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_geslo_uporabnikaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -442,7 +452,7 @@ String value = kraj_uporabnika.getSelectedItem().toString();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField dan_rojstva;
     private javax.swing.JTextField eposta_uporabnika;
-    private javax.swing.JTextField geslo_uporabnika;
+    private javax.swing.JPasswordField geslo_uporabnika;
     private javax.swing.JTextField ime_uporabnika;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

@@ -60,7 +60,6 @@ public class domaca_stran extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 0));
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -72,6 +71,11 @@ public class domaca_stran extends javax.swing.JFrame {
 
         moj_profil_button.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
         moj_profil_button.setText("Moj profil");
+        moj_profil_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                moj_profil_buttonActionPerformed(evt);
+            }
+        });
 
         kategorije.setFont(new java.awt.Font("Times", 0, 14)); // NOI18N
 
@@ -495,6 +499,13 @@ catch (SQLException ex) {
             Logger.getLogger(domaca_stran.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_vsi_oglasiActionPerformed
+
+    private void moj_profil_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moj_profil_buttonActionPerformed
+        // TODO add your handling code here:
+        profil_uporabnika nova = new profil_uporabnika();
+        nova.setVisible(true);
+        
+    }//GEN-LAST:event_moj_profil_buttonActionPerformed
 
     /**
      * @param args the command line arguments
